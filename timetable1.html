@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📅 Timetable - Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .container {
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      width: 100%;
+      max-width: 1000px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+
+    a {
+      color: #007bff;
+      text-decoration: underline;
+      font-size: 0.95rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f4ff;
+      color: #333;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #eef4ff;
+    }
+
+    td input {
+      border: none;
+      width: 100%;
+      background: transparent;
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+    }
+
+    .reminder-box {
+      margin-top: 2rem;
+      background: #fff7cc;
+      padding: 1.2rem;
+      border-left: 6px solid #ffcd00;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      animation: slideUp 0.6s ease;
+    }
+
+    .reminder-box h3 {
+      margin-top: 0;
+      color: #856404;
+      font-size: 1.2rem;
+    }
+
+    .reminder-box ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 1rem 0;
+    }
+
+    .reminder-box li {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #fff8e1;
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .reminder-box li input[type="text"] {
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .reminder-box button {
+      background: #ff6f00;
+      color: white;
+      border: none;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .reminder-input {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .reminder-input input {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .reminder-input button {
+      padding: 0.5rem 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>📅 Editable Timetable</h1>
+    <a href="home.html">← Back to Home</a>
+  </header>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Period 1<br>(9:00–10:00 AM)</th>
+        <th>Period 2<br>(10:15–11:15 AM)</th>
+        <th>Period 3<br>(11:30–12:30 PM)</th>
+        <th>Period 4<br>(1:15–2:15 PM)</th>
+        <th>Period 5<br>(2:30–3:30 PM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Monday</td><td><input type="text" value="Math" /></td><td><input type="text" value="Physics" /></td><td><input type="text" value="BWD" /></td><td><input type="text" value="English" /></td><td><input type="text" value="FDHD" /></td></tr>
+      <tr><td>Tuesday</td><td><input type="text" value="Maths" /></td><td><input type="text" value="BWD" /></td><td><input type="text" value="Physics" /></td><td><input type="text" value="English" /></td><td><input type="text" value="FDHD" /></td></tr>
+      <tr><td>Wednesday</td><td><input type="text" value="Maths" /></td><td><input type="text" value="BWD" /></td><td><input type="text" value="English" /></td><td><input type="text" value="Physics" /></td><td><input type="text" value="FDHD" /></td></tr>
+      <tr><td>Thursday</td><td><input type="text" value="Maths" /></td><td><input type="text" value="BWD" /></td><td><input type="text" value="English" /></td><td><input type="text" value="FDHD" /></td><td><input type="text" value="Physics" /></td></tr>
+      <tr><td>Friday</td><td><input type="text" value="Maths" /></td><td><input type="text" value="English" /></td><td><input type="text" value="FDHD" /></td><td><input type="text" value="Physics" /></td><td><input type="text" value="BWD" /></td></tr>
+      <tr><td>Saturday</td><td><input type="text" value="Maths" /></td><td><input type="text" value="BWD" /></td><td><input type="text" value="Physics" /></td><td><input type="text" value="English" /></td><td><input type="text" value="FDHD" /></td></tr>
+    </tbody>
+  </table>
+
+  <div class="reminder-box">
+    <h3>🔔 Editable Reminders</h3>
+    <ul id="reminderList">
+      <li><input type="text" value="Submit BWD assignment" /><button onclick="deleteReminder(this)">✖</button></li>
+      <li><input type="text" value="Prepare for physics test" /><button onclick="deleteReminder(this)">✖</button></li>
+    </ul>
+    <div class="reminder-input">
+      <input type="text" id="newReminder" placeholder="Add new reminder..." />
+      <button onclick="addReminder()">Add</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function addReminder() {
+    const list = document.getElementById('reminderList');
+    const input = document.getElementById('newReminder');
+    const text = input.value.trim();
+    if (text) {
+      const li = document.createElement('li');
+      li.innerHTML = `<input type="text" value="${text}" /><button onclick="deleteReminder(this)">✖</button>`;
+      list.appendChild(li);
+      input.value = '';
+    }
+  }
+
+  function deleteReminder(btn) {
+    btn.parentElement.remove();
+  }
+</script>
+
+</body>
+</html>

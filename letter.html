@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>✉️ Letter Generator - Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    header h1 {
+      color: #007bff;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      font-size: 2rem;
+    }
+    header a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    header a:hover {
+      text-decoration: underline;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    .letter {
+      font-size: 1.1rem;
+      color: #333;
+      line-height: 1.6;
+      white-space: pre-line;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+    .signature {
+      margin-top: 2rem;
+      font-weight: 600;
+      text-align: right;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>✉️ Letter Generator</h1>
+      <a href="home.html">← Back to Home</a>
+    </header>
+
+    <select id="letterType" onchange="generateLetter()">
+      <option value="">-- Select Letter Type --</option>
+      <option value="apology">1. Apology for violating college rules</option>
+      <option value="outing">2. Request for outing pass (personal issue)</option>
+      <option value="documents">3. Request for certificates for scholarship</option>
+      <option value="leave">4. Leave letter</option>
+    </select>
+
+    <section class="letter" id="letterContent"></section>
+  </div>
+
+  <script>
+    function generateLetter() {
+      const type = document.getElementById("letterType").value;
+      const letterBox = document.getElementById("letterContent");
+      let content = "";
+
+      if (type === "apology") {
+        content = `To,
+The Principal,
+XYZ College,
+
+Subject: Apology for Violation of College Rules
+
+Respected Sir/Madam,
+
+I sincerely apologize for violating the college rules. I accept full responsibility for my actions and assure you that such behavior will not be repeated. I request you to kindly accept my apology and allow me to continue with my academic schedule without any disciplinary action.
+
+Thank you for your understanding.
+
+Sincerely,
+[Your Name]
+[Your Roll Number]`;
+      } else if (type === "outing") {
+        content = `To,
+The Principal,
+XYZ College,
+
+Subject: Request for Outing Permission
+
+Respected Sir/Madam,
+
+I am writing to request permission to leave the campus due to a personal issue that needs my urgent attention. I will make sure to return within the permitted time and abide by all college rules.
+
+Kindly consider my request and grant me the outing pass.
+
+Sincerely,
+[Your Name]
+[Your Roll Number]`;
+      } else if (type === "documents") {
+        content = `To,
+The Principal,
+XYZ College,
+
+Subject: Request for Certificates for Scholarship Application
+
+Respected Sir/Madam,
+
+I am applying for a scholarship program and need supporting documents such as my Bonafide Certificate, Marks Memos, and any other required certifications. I request you to kindly provide these at the earliest convenience.
+
+Thank you for your support.
+
+Sincerely,
+[Your Name]
+[Your Roll Number]`;
+      } else if (type === "leave") {
+        content = `To,
+The Principal,
+XYZ College,
+
+Subject: Leave Letter
+
+Respected Sir/Madam,
+
+I am unable to attend classes from [start date] to [end date] due to [reason - e.g., health issues, personal matters]. I kindly request you to grant me leave for the mentioned days.
+
+I will make sure to cover the missed syllabus and maintain my academic performance.
+
+Sincerely,
+[Your Name]
+[Your Roll Number]`;
+      }
+
+      letterBox.innerText = content;
+    }
+  </script>
+</body>
+</html>

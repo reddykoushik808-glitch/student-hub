@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📧 Email Generator - Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem 2.5rem;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 12px 30px rgba(0, 123, 255, 0.15);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.8rem;
+    }
+
+    header h1 {
+      color: #007bff;
+      font-weight: 700;
+      font-size: 2.1rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.3rem;
+      animation: slideInLeft 0.8s ease forwards;
+    }
+
+    header a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      display: inline-block;
+      margin-top: 10px;
+      transition: color 0.3s ease;
+    }
+    header a:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    label {
+      font-weight: 600;
+      margin-top: 1rem;
+      display: block;
+      color: #0056b3;
+      letter-spacing: 0.02em;
+      font-size: 1rem;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 8px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: 1.8px solid #ccc;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      resize: vertical;
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+      outline: none;
+      transition: border-color 0.3s ease, box-shadow 0.4s ease;
+    }
+
+    button {
+      margin-top: 1.8rem;
+      width: 100%;
+      padding: 14px 0;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
+      background: linear-gradient(90deg, #007bff 0%, #0056b3 100%);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 1.4s ease forwards;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #0056b3 0%, #003d80 100%);
+      box-shadow: 0 8px 20px rgba(0, 86, 179, 0.6);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      0% {
+        opacity: 0;
+        transform: translateX(-40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container" role="main" aria-label="Email Generator Form">
+    <header>
+      <h1>📧 Email Generator</h1>
+      <a href="home.html" aria-label="Back to home page">← Back to Home</a>
+    </header>
+
+    <form id="emailForm" aria-describedby="instructions">
+      <label for="to">To:</label>
+      <input type="email" id="to" placeholder="recipient@example.com" aria-required="true" />
+
+      <label for="subject">Subject:</label>
+      <input type="text" id="subject" placeholder="Enter email subject" aria-required="true" />
+
+      <label for="template">Select a Template:</label>
+      <select id="template" onchange="fillTemplate()" aria-label="Select an email template">
+        <option value="">-- Choose a template --</option>
+        <option value="leave">Request for Leave</option>
+        <option value="lab_issue">Lab Access/Issue</option>
+        <option value="grades">Request for Grade Clarification</option>
+        <option value="internship">Internship Recommendation Letter</option>
+        <option value="project">Final Year Project Approval</option>
+        <option value="exam_reval">Request for Revaluation</option>
+        <option value="certificate">Bonafide Certificate Request</option>
+        <option value="attendance">Attendance Shortage Clarification</option>
+        <option value="club">Joining a Technical Club</option>
+        <option value="event">Permission for Event Participation</option>
+      </select>
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="6" placeholder="Type your message here..." aria-required="true"></textarea>
+
+      <button type="button" onclick="sendEmail()">Send Email</button>
+    </form>
+  </div>
+
+  <script>
+    function fillTemplate() {
+      const template = document.getElementById("template").value;
+      const message = document.getElementById("message");
+      const subject = document.getElementById("subject");
+
+      const templates = {
+        leave: {
+          subject: "Request for Leave",
+          body: `Dear [Faculty Name],\n\nI would like to request leave on [Date] due to [Reason]. Please let me know if you need any further documentation.\n\nThank you,\n[Your Name]`
+        },
+        lab_issue: {
+          subject: "Lab Access Issue",
+          body: `Dear [Lab Incharge],\n\nI am facing issues accessing the [Lab Name] during our assigned slot. Kindly look into this matter at your earliest convenience.\n\nBest regards,\n[Your Name]`
+        },
+        grades: {
+          subject: "Request for Grade Clarification",
+          body: `Respected Sir/Madam,\n\nI would like to seek clarification regarding the marks awarded in [Subject]. Could we schedule a meeting to discuss this?\n\nRegards,\n[Your Name]`
+        },
+        internship: {
+          subject: "Request for Internship Recommendation",
+          body: `Dear [Professor's Name],\n\nI am applying for an internship at [Company Name] and would be grateful if you could provide me a recommendation letter based on my performance in your course.\n\nSincerely,\n[Your Name]`
+        },
+        project: {
+          subject: "Project Topic Approval",
+          body: `Respected Guide,\n\nPlease find below the proposal for my final year project: [Project Title]. Kindly let me know if it's approved or if any changes are needed.\n\nThank you,\n[Your Name]`
+        },
+        exam_reval: {
+          subject: "Revaluation Request",
+          body: `Dear [Faculty/Exam Cell],\n\nI would like to apply for the revaluation of my exam paper in [Subject] from [Semester/Exam Date]. Kindly let me know the process.\n\nThanks,\n[Your Name]`
+        },
+        certificate: {
+          subject: "Request for Bonafide Certificate",
+          body: `To whom it may concern,\n\nI am a [Year] year student of [Department] and require a Bonafide Certificate for [Purpose]. Kindly issue the same at the earliest.\n\nRegards,\n[Your Name]`
+        },
+        attendance: {
+          subject: "Attendance Shortage Clarification",
+          body: `Dear [Faculty Name],\n\nI noticed a shortage in attendance for [Subject]. I believe this might be a discrepancy. Could you please verify and let me know?\n\nRegards,\n[Your Name]`
+        },
+        club: {
+          subject: "Request to Join Technical Club",
+          body: `Hello,\n\nI am interested in joining the [Club Name] to enhance my skills in [Skill/Technology]. Kindly guide me through the joining process.\n\nThanks,\n[Your Name]`
+        },
+        event: {
+          subject: "Request for Event Participation Permission",
+          body: `Dear [Faculty/Coordinator],\n\nI wish to participate in [Event Name] on [Date]. I request your permission to attend and represent the college.\n\nThank you,\n[Your Name]`
+        }
+      };
+
+      if (templates[template]) {
+        subject.value = templates[template].subject;
+        message.value = templates[template].body;
+      } else {
+        subject.value = "";
+        message.value = "";
+      }
+    }
+
+    function sendEmail() {
+      const to = document.getElementById("to").value.trim();
+      const subject = document.getElementById("subject").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if (!to || !subject || !message) {
+        alert("Please fill in all required fields.");
+        return;
+      }
+
+      // Just a demo alert since no backend to send
+      alert(`Email ready to be sent!\n\nTo: ${to}\nSubject: ${subject}\n\n${message}`);
+    }
+  </script>
+</body>
+</html>

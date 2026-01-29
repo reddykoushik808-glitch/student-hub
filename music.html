@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>🎵 Music - Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      transition: background 0.5s;
+    }
+
+    body.dark {
+      background: #1e1e1e;
+      color: white;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      width: 90%;
+      transition: background 0.5s, color 0.5s;
+    }
+
+    body.dark .container {
+      background-color: #2c2c2c;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+
+    header a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    .toggle {
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .playlist {
+      margin: 1rem 0;
+    }
+
+    .playlist button {
+      background: #f0f8ff;
+      border: 1px solid #007bff;
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s;
+    }
+
+    .playlist button:hover {
+      background: #d0e7ff;
+    }
+
+    body.dark .playlist button {
+      background: #333;
+      color: white;
+      border: 1px solid #66b0ff;
+    }
+
+    section {
+      text-align: center;
+    }
+
+    audio {
+      margin-top: 1rem;
+      width: 100%;
+      outline: none;
+    }
+
+    .now-playing {
+      margin-top: 1rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    body.dark .now-playing {
+      color: #66b0ff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🎵 Music</h1>
+      <a href="home.html">← Back to Home</a>
+    </header>
+
+    <div class="toggle">
+      <button onclick="toggleDarkMode()">🌓 Toggle Dark Mode</button>
+    </div>
+
+    <section>
+      <p>🎧 Enjoy your study vibes</p>
+
+      <div class="playlist">
+        <button onclick="playTrack(0)">🎶 Until I Found You</button>
+        <button onclick="playTrack(1)">🎶 Night Changes</button>
+        <button onclick="playTrack(2)">🎶 Perfect</button>
+      </div>
+
+      <div class="now-playing" id="nowPlaying">Now Playing: None</div>
+
+      <audio id="audioPlayer" controls>
+        <source src="C:\Users\reddy\OneDrive\Desktop\pbl@lol\music" type="audio/mp3">
+        
+        
+      </audio>
+    </section>
+  </div>
+
+  <script>
+    const audioPlayer = document.getElementById("audioPlayer");
+    const nowPlaying = document.getElementById("nowPlaying");
+
+    const playlist = [
+      { name: "Until I Found You", file: "Until-I-Found-you.mp3" },
+      { name: "Night Changes", file: "Night-Changes.mp3" },
+      { name: "Perfect", file: "Perfect.mp3" }
+    ];
+
+    let currentTrack = 0;
+
+    function playTrack(index) {
+      currentTrack = index;
+      const track = playlist[index];
+      audioPlayer.src = track.file;
+      nowPlaying.textContent = "Now Playing: " + track.name;
+      audioPlayer.play();
+    }
+
+    // Auto-play next track
+    audioPlayer.addEventListener("ended", () => {
+      currentTrack = (currentTrack + 1) % playlist.length;
+      playTrack(currentTrack);
+    });
+
+    // Dark Mode toggle
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark");
+    }
+  </script>
+</body>
+</html>

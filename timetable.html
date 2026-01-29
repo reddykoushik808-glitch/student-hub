@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📅 Timetable</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      color: #007bff;
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #007bff;
+      color: white;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #f7faff;
+    }
+
+    tr td:first-child {
+      font-weight: 600;
+      text-transform: capitalize;
+      color: #333;
+    }
+
+    .reminder-box {
+      margin-top: 2rem;
+    }
+
+    .reminder-box h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      color: #007bff;
+    }
+
+    .reminder-box input {
+      width: calc(100% - 110px);
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    .reminder-box button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .reminder-box button:hover {
+      background-color: #0056b3;
+    }
+
+    .reminder-list {
+      margin-top: 1rem;
+      list-style: none;
+      padding: 0;
+    }
+
+    .reminder-list li {
+      background-color: #f1f8ff;
+      padding: 10px 15px;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .reminder-list button {
+      background: none;
+      border: none;
+      color: #dc3545;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .reminder-list button:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📅 Weekly Timetable</h1>
+      <a href="home.html">← Back to Home</a>
+    </header>
+
+    <table>
+      <tr>
+        <th>Day</th>
+        <th>PERIOD1<br>[9:00am–10:15am]</th>
+        <th>PERIOD2<br>[10:15am–11:15am]</th>
+        <th>PERIOD3<br>[11:15am–12:15pm]</th>
+        <th><strong>Break</strong><br>[12:15pm–01:00pm]</th>
+        <th>PERIOD4<br>[01:00pm–02:00pm]</th>
+        <th>PERIOD5<br>[02:00pm–03:00pm]</th>
+        <th>PERIOD6<br>[03:00pm–04:00pm]</th>
+      </tr>
+      <tr>
+        <td>Monday</td>
+        <td>Maths</td>
+        <td>Mentor</td>
+        <td>FDHD</td>
+        <td>LUNCH</td>
+        <td>AP</td>
+        <td>Maths</td>
+        <td>ESE</td>
+      </tr>
+      <tr>
+        <td>Tuesday</td>
+        <td colspan="2">AP LAB/DHD LAB</td>
+        <td>Maths</td>
+        <td>LUNCH</td>
+        <td>ESE</td>
+        <td>BWD</td>
+        <td>BWD</td>
+      </tr>
+      <tr>
+        <td>Wednesday</td>
+        <td>Yoga</td>
+        <td>AP</td>
+        <td>PBL</td>
+        <td>LUNCH</td>
+        <td>BWD</td>
+        <td>CDC</td>
+        <td>Maths</td>
+      </tr>
+      <tr>
+        <td>Thursday</td>
+        <td>FDHD</td>
+        <td>BWD</td>
+        <td>Maths</td>
+        <td>LUNCH</td>
+        <td>CDC</td>
+        <td colspan="2">AP LAB/DHD LAB</td>
+      </tr>
+      <tr>
+        <td>Friday</td>
+        <td colspan="2">ESE LAB</td>
+        <td>WEB</td>
+        <td>LUNCH</td>
+        <td>LIB (Remedial)</td>
+        <td>Maths (Remedial)</td>
+        <td>BWD (Remedial)</td>
+      </tr>
+      <tr>
+        <td>Saturday</td>
+        <td>AP</td>
+        <td>FDHD</td>
+        <td>PBL</td>
+        <td>LUNCH</td>
+        <td>AP (Remedial)</td>
+        <td>FDHD (Remedial)</td>
+        <td>CDC</td>
+      </tr>
+    </table>
+
+    <!-- Reminder Box -->
+    <div class="reminder-box">
+      <h2>📌 Reminders</h2>
+      <div style="display: flex; align-items: center;">
+        <input type="text" id="reminderInput" placeholder="Enter a reminder..." />
+        <button onclick="addReminder()">Add</button>
+      </div>
+      <ul class="reminder-list" id="reminderList"></ul>
+    </div>
+  </div>
+
+  <script>
+    function addReminder() {
+      const input = document.getElementById("reminderInput");
+      const list = document.getElementById("reminderList");
+      const text = input.value.trim();
+
+      if (text !== "") {
+        const li = document.createElement("li");
+        li.innerHTML = `${text} <button onclick="this.parentElement.remove()">✕</button>`;
+        list.appendChild(li);
+        input.value = "";
+      }
+    }
+  </script>
+</body>
+</html>

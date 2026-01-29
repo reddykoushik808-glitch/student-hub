@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    #main-content {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 14px 40px rgba(0, 123, 255, 0.2);
+      animation: fadeScaleIn 0.8s ease forwards;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: fadeInText 1s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      color: #007bff;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      color: #555;
+      font-weight: 500;
+      font-size: 1.1rem;
+      letter-spacing: 0.02em;
+    }
+
+    .nav-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.2rem;
+      opacity: 0;
+      animation: fadeInText 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+
+    .nav-box {
+      background-color: white;
+      text-decoration: none;
+      color: #333;
+      padding: 1.3rem;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      font-size: 1.1rem;
+      font-weight: 600;
+      transition: transform 0.25s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      user-select: none;
+      will-change: transform;
+    }
+
+    .nav-box:hover {
+      background-color: #f0f4ff;
+      box-shadow: 0 14px 30px rgba(0, 123, 255, 0.3);
+      animation: bounce 0.5s;
+      transform: translateY(-6px);
+      color: #0056b3;
+    }
+
+    /* Animations */
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fadeInText {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(-6px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Responsive tweak */
+    @media (max-width: 400px) {
+      .nav-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div id="main-content" role="main" aria-label="Student Hub Navigation">
+  <header>
+    <h1>📚 Student Hub</h1>
+    <p>All your tools in one place</p>
+  </header>
+
+  <div class="nav-container">
+    <a href="music.html" class="nav-box" tabindex="0">🎵 Music</a>
+    <a href="notes.html" class="nav-box" tabindex="0">📝 Notes</a>
+    <a href="timetable1.html" class="nav-box" tabindex="0">📅 Timetable</a>
+    <a href="syllabus.html" class="nav-box" tabindex="0">📘 Syllabus</a>
+    <a href="upload.html" class="nav-box" tabindex="0">📷 Upload</a>
+    <a href="assignments.html" class="nav-box" tabindex="0">📌 Assignments</a>
+    <a href="email.html" class="nav-box" tabindex="0">📧 Email</a>
+    <a href="attendance.html" class="nav-box" tabindex="0">📊 Attendance</a>
+    <a href="letter.html" class="nav-box" tabindex="0">✉️ Letter</a>
+  </div>
+</div>
+
+</body>
+</html>

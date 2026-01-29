@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>📷 Upload - Student Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      width: 95%;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+
+    header a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    header a:hover {
+      text-decoration: underline;
+    }
+
+    section {
+      margin-top: 1.5rem;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      margin-top: 0.5rem;
+      padding: 0.6rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-family: 'Inter', sans-serif;
+      width: 90%;
+    }
+
+    button {
+      margin-top: 1rem;
+      background-color: #007bff;
+      color: white;
+      padding: 0.6rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .image-card {
+      background-color: #f8faff;
+      border-radius: 10px;
+      padding: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .image-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .image-card h4 {
+      margin: 0.5rem 0 0.3rem;
+      font-size: 1rem;
+      color: #333;
+    }
+
+    .image-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📷 Upload</h1>
+      <a href="home.html">← Back to Home</a>
+    </header>
+
+    <section>
+      <input type="file" id="imageUpload" accept="image/*"><br>
+      <input type="text" id="imageTitle" placeholder="Enter image title"><br>
+      <input type="text" id="imageCaption" placeholder="Enter image caption"><br>
+      <button onclick="handleUpload()">Upload Image</button>
+      <button onclick="clearGallery()" style="background-color: #dc3545; margin-left: 1rem;">Clear All</button>
+
+      <div class="gallery" id="imageGallery"></div>
+    </section>
+  </div>
+
+  <script>
+    function handleUpload() {
+      const fileInput = document.getElementById("imageUpload");
+      const title = document.getElementById("imageTitle").value.trim();
+      const caption = document.getElementById("imageCaption").value.trim();
+      const file = fileInput.files[0];
+
+      if (!file || !file.type.startsWith("image/")) {
+        alert("Please select a valid image file.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const storedImages = JSON.parse(localStorage.getItem("galleryImages")) || [];
+        storedImages.push({
+          src: e.target.result,
+          title: title || "Untitled",
+          caption: caption || ""
+        });
+        localStorage.setItem("galleryImages", JSON.stringify(storedImages));
+        displayGallery();
+        clearInputs();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function displayGallery() {
+      const gallery = document.getElementById("imageGallery");
+      gallery.innerHTML = "";
+      const images = JSON.parse(localStorage.getItem("galleryImages")) || [];
+
+      images.forEach(image => {
+        const card = document.createElement("div");
+        card.className = "image-card";
+
+        const img = document.createElement("img");
+        img.src = image.src;
+
+        const title = document.createElement("h4");
+        title.textContent = image.title;
+
+        const caption = document.createElement("p");
+        caption.textContent = image.caption;
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.appendChild(caption);
+
+        gallery.appendChild(card);
+      });
+    }
+
+    function clearGallery() {
+      if (confirm("Are you sure you want to clear all uploaded images?")) {
+        localStorage.removeItem("galleryImages");
+        displayGallery();
+      }
+    }
+
+    function clearInputs() {
+      document.getElementById("imageUpload").value = "";
+      document.getElementById("imageTitle").value = "";
+      document.getElementById("imageCaption").value = "";
+    }
+
+    // Load on page ready
+    window.onload = displayGallery;
+  </script>
+</body>
+</html>

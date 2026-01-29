@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Attendance Calculator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #e0eafc, #cfdef3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      background-color: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .back-link {
+      display: inline-block;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    h2 {
+      color: #007bff;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
+      color: #333;
+    }
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      border: 1.5px solid #007bff;
+      border-radius: 8px;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    select:focus, input:focus {
+      border-color: #0056b3;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .output {
+      font-size: 1rem;
+      margin-top: 1rem;
+      color: #333;
+      text-align: center;
+      min-height: 60px;
+    }
+    .credit {
+      text-align: center;
+      font-size: 0.85rem;
+      color: #007bff;
+      margin-bottom: 1rem;
+    }
+    /* Progress Bar Styles */
+    .progress-container {
+      background-color: #eee;
+      border-radius: 12px;
+      height: 20px;
+      width: 100%;
+      margin-top: 1rem;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .progress-bar {
+      height: 100%;
+      background-color: #007bff;
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      margin-top: 0.3rem;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="home.html" class="back-link">← Back to Home</a>
+    <div class="credit">Made by Student Hub📚</div>
+    <h2>Attendance Calculator</h2>
+    <label for="required">Percentage Required</label>
+    <select id="required">
+      <option value="75">75%</option>
+      <option value="80">80%</option>
+      <option value="85">85%</option>
+    </select>
+
+    <label for="present">Classes Present</label>
+    <input type="number" id="present" placeholder="Enter classes present" min="0" />
+
+    <label for="total">Total Classes</label>
+    <input type="number" id="total" placeholder="Enter total classes" min="1" />
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="output" id="output"></div>
+
+    <div class="progress-container" aria-label="Attendance progress">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+    <div class="progress-labels">
+      <div id="current-attendance-label">Current: 0%</div>
+      <div id="required-attendance-label">Required: 0%</div>
+    </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const required = parseFloat(document.getElementById("required").value);
+      const present = parseInt(document.getElementById("present").value);
+      const total = parseInt(document.getElementById("total").value);
+      const output = document.getElementById("output");
+      const progressBar = document.getElementById("progress-bar");
+      const currentLabel = document.getElementById("current-attendance-label");
+      const requiredLabel = document.getElementById("required-attendance-label");
+
+      if (isNaN(present) || isNaN(total) || total === 0 || present < 0 || total < 0 || present > total) {
+        output.innerHTML = "Please enter valid numbers (present ≤ total, total > 0).";
+        progressBar.style.width = '0%';
+        currentLabel.textContent = "Current: 0%";
+        requiredLabel.textContent = `Required: ${required}%`;
+        return;
+      }
+
+      const currentAttendance = ((present / total) * 100).toFixed(2);
+
+      currentLabel.textContent = `Current: ${currentAttendance}%`;
+      requiredLabel.textContent = `Required: ${required}%`;
+
+      // Update progress bar: show current attendance relative to required, max 100%
+      let progressPercent = Math.min((present / total) * 100, 100);
+      progressBar.style.width = `${progressPercent}%`;
+
+      if (currentAttendance < required) {
+        let futureTotal = total;
+        let futurePresent = present;
+
+        while ((futurePresent / futureTotal) * 100 < required) {
+          futureTotal += 6; // Adding one day (6 classes)
+          futurePresent += 6; // Attending all classes of that day
+        }
+
+        const neededDays = (futureTotal - total) / 6;
+
+        output.innerHTML =
+          `You cannot bunk classes.<br>
+           Current Attendance: <strong>${present}/${total} → ${currentAttendance}%</strong><br>
+           To reach ${required}% attendance, you must attend the next <strong>${neededDays}</strong> days (${neededDays * 6} classes) consecutively without any bunk.`;
+        return;
+      }
+
+      let classesCanBunk = 0;
+      let futureTotal = total;
+
+      while ((present / (futureTotal + 1)) * 100 >= required) {
+        classesCanBunk++;
+        futureTotal++;
+      }
+
+      const daysCanBunk = Math.floor(classesCanBunk / 6);
+      const remainingClasses = classesCanBunk % 6;
+
+      const finalAttendance = ((present / futureTotal) * 100).toFixed(2);
+
+      let bunkMessage = `You can bunk for <strong>${classesCanBunk}</strong> more classes.`;
+
+      if (daysCanBunk > 0) {
+        bunkMessage += `<br>Which is approximately <strong>${daysCanBunk}</strong> full days`;
+        if (remainingClasses > 0) {
+          bunkMessage += ` and <strong>${remainingClasses}</strong> additional classes`;
+        }
+      }
+
+      output.innerHTML =
+        `${bunkMessage}<br>
+         Current Attendance: <strong>${present}/${total} → ${currentAttendance}%</strong><br>
+         Attendance Then: <strong>${present}/${futureTotal} → ${finalAttendance}%</strong>`;
+    }
+  </script>
+</body>
+</html>
